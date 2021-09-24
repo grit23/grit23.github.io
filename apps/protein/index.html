@@ -1,2 +1,176 @@
-Yes det funkar, här kommer appen vara! /E
-<br><b>YES nu fattar jag</b>
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <title>Protein</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="Protein">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="img/icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css"> <script defer src="js/protein.js"></script> <link rel="stylesheet"href="css/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        html {touch-action: manipulation;}
+    </style>
+    
+</head>
+
+<body class="w3-svt-grey">
+  <!-- Add your site or application content here-->
+  <div class="w3-bar w3-svt-grey sticky">
+    <!--  
+      <a class="w3-bar-item w3-right" href="#"><i class="material-icons" style="font-size:26px;color:whitesmoke;">settings</i></a>
+    -->  
+      <!--w3-bar-item hade jag i class nedan förut, gjorde att text efter visades ovan
+    
+    -->
+      <span class=" w3-wide w3-xxlarge w3-padding" href="#">Protein: <span id="total_field"> </span></span>
+<hr>
+    </div>
+
+<!-- TONFISK --><!--w3-margin-top tog jag bort från class nedan för att få mindre space ovan texten tonfisk, bara för den översta proteinsorten-->    
+<div class=" w3-svt-grey  w3-center w3-wide"> <!-- Knappfält-->
+    <span class="w3-large">Tonfisk:</span><span class="w3-large" id="total_0"></span> <!-- shows subtotal -->
+    <br><br>
+    <div class="w3-center w3-mobile">
+        <button id="enhet_0" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(0,"tonfisk","portion")>1 Burk</button>
+    
+        <button id="stort_steg_0" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(0,"tonfisk","stort_steg")>10 g</button>
+    
+        <button id="litet_steg_0" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(0,"tonfisk","litet_steg")>1 g</button>
+    
+        <button id="reset_0" class="w3-button w3-dark-grey w3-round-medium" onclick=visa_subtotal(0,"tonfisk","reset")>Reset</button>
+    </div>
+</div>
+<hr>    
+<!--TONFISK SLUT -->
+<!--ÄGG-->
+<div class=" w3-svt-grey w3-margin-top w3-center w3-wide"> <!-- Knappfält-->
+    <span class="w3-large">&Auml;gg:</span><span class="w3-large" id="total_1"></span> <!-- shows subtotal -->
+    <br><br>
+    <div class="w3-center w3-mobile">
+        <button id="enhet_1" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(1,"agg","portion")>1 styck</button>
+    
+        <button id="stort_steg_1" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(1,"agg","stort_steg")>Halvt</button>
+    
+        <button id="litet_steg_1" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(1,"agg","litet_steg")>1 g</button>
+    
+        <button id="reset_1" class="w3-button w3-dark-grey w3-round-medium" onclick=visa_subtotal(1,"agg","reset")>Reset</button>
+    </div>
+</div>
+<hr>   
+<!-- ÄGG SLUT -->
+
+<!--PROTEINPULVER-->
+<div class=" w3-svt-grey w3-margin-top w3-center w3-wide"> <!-- Knappfält-->
+    <span class="w3-large">Prot.pulver:</span><span class="w3-large" id="total_2"></span> <!-- shows subtotal -->
+    <br><br>
+    <div class="w3-center w3-mobile">
+        <button id="enhet_2" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(2,"proteinpulver","portion")>2 Sk.</button>
+    
+        <button id="stort_steg_2" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(2,"proteinpulver","stort_steg")>1 Sk.</button>
+    
+        <button id="litet_steg_2" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(2,"proteinpulver","litet_steg")>1 g</button>
+    
+        <button id="reset_2" class="w3-button w3-dark-grey w3-round-medium" onclick=visa_subtotal(2,"proteinpulver","reset")>Reset</button>
+    </div>
+</div>
+<hr>   
+<!-- PROTEINPULVER SLUT -->
+    
+<!-- KYCKLING START -->
+<div class=" w3-svt-grey w3-margin-top w3-center w3-wide"> <!-- Knappfält-->
+    <span class="w3-large">Kyckling:</span><span class="w3-large" id="total_3"></span> <!-- shows subtotal -->
+    <br><br>
+    <div class="w3-center w3-mobile">
+        <button id="enhet_3" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(3,"kyckling","portion")>1 Filé</button>
+    
+        <button id="stort_steg_3" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(3,"kyckling","stort_steg")>10 g</button>
+    
+        <button id="litet_steg_3" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(3,"kyckling","litet_steg")>1 g</button>
+    
+        <button id="reset_3" class="w3-button w3-dark-grey w3-round-medium" onclick=visa_subtotal(3,"kyckling","reset")>Reset</button>
+    </div>
+</div>
+<hr>   
+<!-- KYCKLING SLUT -->
+
+<!-- KÖTT START -->
+<div class=" w3-svt-grey w3-margin-top w3-center w3-wide"> <!-- Knappfält-->
+    <span class="w3-large">K&ouml;tt:</span><span class="w3-large" id="total_4"></span> <!-- shows subtotal -->
+    <br><br>
+    <div class="w3-center w3-mobile">
+        <button id="enhet_4" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(4,"kott","portion")>100 g</button>
+    
+        <button id="stort_steg_4" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(4,"kott","stort_steg")>10 g</button>
+    
+        <button id="litet_steg_4" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(4,"kott","litet_steg")>1 g</button>
+    
+        <button id="reset_4" class="w3-button w3-dark-grey w3-round-medium" onclick=visa_subtotal(4,"kott","reset")>Reset</button>
+    </div>
+</div>
+<hr>   
+<!-- KÖTT SLUT -->
+
+<!-- NÖTTER START -->
+<div class=" w3-svt-grey w3-margin-top w3-center w3-wide"> <!-- Knappfält-->
+    <span class="w3-large">N&ouml;tter:</span><span class="w3-large" id="total_5"></span> <!-- shows subtotal -->
+    <br><br>
+    <div class="w3-center w3-mobile">
+        <button id="enhet_5" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(5,"notter","portion")>1 dl</button>
+    
+        <button id="stort_steg_5" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(5,"notter","stort_steg")>10 g</button>
+    
+        <button id="litet_steg_5" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(5,"notter","litet_steg")>1 g</button>
+    
+        <button id="reset_5" class="w3-button w3-dark-grey w3-round-medium" onclick=visa_subtotal(5,"notter","reset")>Reset</button>
+    </div>
+</div>
+<hr>   
+<!-- NÖTTER SLUT -->
+
+<!-- RENT PROTEIN START -->
+<div class=" w3-svt-grey w3-margin-top w3-center w3-wide"> <!-- Knappfält-->
+    <span class="w3-large">Rent Protein:</span><span class="w3-large" id="total_6"></span> <!-- shows subtotal -->
+    <br><br>
+    <div class="w3-center w3-mobile">
+        <button id="enhet_6" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(6,"rent_protein","portion")>1 g</button>
+    
+        <button id="stort_steg_6" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(6,"rent_protein","stort_steg")>10 g</button>
+    <!-- denna knapp behövs inte
+        <button id="litet_steg_6" class="w3-button w3-petrol w3-round-medium " onclick=visa_subtotal(6,"rent_protein","litet_steg")>1 g</button>
+    -->
+        <button id="reset_6" class="w3-button w3-dark-grey w3-round-medium" onclick=visa_subtotal(6,"rent_protein","reset")>Reset</button>
+    </div>
+</div>
+<hr>   
+<!-- RENT PROTEIN SLUT -->
+Ver. 7.0
+    
+    
+<!-- End site content -->
+    
+  <script src="js/plugins.js"></script>
+<!-- Använder inte dessa skript nu    
+  <script defer src="js/vendor/modernizr-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script >window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+  <script src="js/main.js"></script>
+-->
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+ <!-- Använder inte detta nu
+    <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+-->
+</body>
+
+</html>

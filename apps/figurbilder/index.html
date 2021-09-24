@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>Nummberbilder</title>
+		
+		<!--<meta name="viewport" content="width=device-width; height=device-height; initial-scale=1.0; maximum-scale=1.0;"/>
+		
+		<script src="library_local.js"></script>
+		-->
+		
+		<script type="text/javascript" src="nb_global.js"></script> <!--för att definera global variabler-->
+		
+		<script type="text/javascript" src="nb.js"></script>
+
+		<script type="text/javascript" src="clickCanvas.js"></script>		
+		<script type="text/javascript" src="nb_text.js"></script>
+
+		
+		<style>
+        	html,
+        	body {
+            	width: 100%;
+            	height: 100%;
+            	margin: 0;
+        		}
+        	canvas {
+            	background: none;
+            	display: block;
+            	position: absolute;
+            	top: 0;
+            	left: 0;
+            	right: 0;
+            	bottom: 0;
+            	width: 100%;
+            	height: 100%;
+            	
+        	}
+    	</style>
+	</head>
+	<body onload = "init()" oncontextmenu="return false">
+	<!-- oncontextmenu="return false" -->
+		<canvas id="nummerCanvas" width="100" height="200" style="border:0px solid #FF0000;">
+		<!-- resolution för iphone 5 är 320x568 aspect ratio för att bli kvadrat dvs hälften av värden t ex-->
+			Ok, you can't see the canvas since your browser doesn't support it.
+		</canvas>
+	<!--
+	<img class= "hidden" style="display:none" id="bild1" src="mm1.png"/> Id:t här används för att hitta bilden i javascriptet.
+	<!--
+	<img class= "hidden" style="display:none" id="bild2" src="mm2.png"/> Id:t här används för att hitta bilden i javascriptet
+	
+	</body>
+</html>

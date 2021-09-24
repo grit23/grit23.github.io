@@ -1,0 +1,23 @@
+backlog
+
+fixa så att man kan svara med en siffra - så att ny ekvation visas, nu funkar bara med 2 input
+
+få siffran från input att skrivas i div
+läsa status på radiobuttons
+
+se till att siffertangentborder kommer upp när man skriver i input
+logik för att visa siffror t ex array och räkna rätt och skriva ut dom sen
+
+-validera svaret och spara ekvation och svar och flagga om rätt i array
+-visa array med vad som var fel och rätt med antal stjärnor
+-mät tiden från start till slut
+
+
+//http://www.tiger.se/dok/koder.html
+//ö	&ouml;	&#246;
+//Ö	    	&#214;
+//ä	&auml;	&#228;
+//å	&aring;	&#229;
+//é	&eacute;	&#233;
+//Ä 196
+//Å  &#197; 
