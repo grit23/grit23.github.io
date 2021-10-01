@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="ball.css"/>
+	<title>Bouncing ball</title>
+	<script src="ballBase.js"></script>
+	<script src="objects.js"></script>
+	<script src="ballLogic.js"></script>
+	<script src="ballCanvas.js"></script>
+	<script src="ball.js"></script>
+</head>
+<body>
+	<div id="controlPanel">
+		Pseudo Gravity:
+		0<input type="range" id="gravity" min="0" max="1" step="0.1">1
+		Mass:
+		1<input type="range" id="mass" min="1" max="50">50
+		Radius:
+		2<input type="range" id="radius" min="2" max="50">50</br>
+		Angle:
+		0<input type="range" id="angle" min="0" max="90" oninput="updateCanonAngle(this.value)">90
+		Speed (preferably 5-15):
+		1<input type="range" id="speed" min="1" max="15">15
+		<button type="button" id="startButton" onClick="startClick()">Shoot</button>
+		<button type="button" id="clearButton" onClick="clearScreen()">Clear Screen</button>
+	</div>
+	<canvas id="graphic" class="stretched" width="800" height="500">
+			
+	</canvas>
+	
+	</body>
+</html>
