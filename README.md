@@ -1,5 +1,6 @@
 ## Welcome to GitHub Pages
-Det funkar! Kul. Nästa steg är att ladda upp webapparna här.
+
+[Till web-apparna](apps/index.html) 
 
 You can use the [editor on GitHub](https://github.com/grit23/grit23.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
