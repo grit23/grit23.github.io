@@ -80,7 +80,7 @@ th,td {padding:10px;}
 	text-align:center;
     padding:5px; 
 	width:99%;
-	height:350px;
+	height: 200px; /*var 350 ändrar size på där ekvation står ner till svarsfältet, mindre gör att svarsfältet kommer närmare ekvationen.*/
 	margin:0px;
 	border-width:0px;
 	}
@@ -152,7 +152,7 @@ input[type=radio] {
 <meta name="viewport" content="user-scalable=no, width=device-width"> <!--sätter bredden på sidan så den blir lika bred som ipaden-->
 <!-- https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/UsingtheViewport/UsingtheViewport.html#//apple_ref/doc/uid/TP40006509-SW26-->
 </head>
-<body onload = "init()" oncontextmenu="return false">
+<body onload = "init()" oncontextmenu="return false"> <!--hindrar att högerklick öppnar contextmeny-->
 
 <audio id="rattLjud">
 <source src="rattSvar.mp3"
