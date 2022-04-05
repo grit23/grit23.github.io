@@ -36,7 +36,8 @@ if(screen.height<800) //iphone får knappar inte radio buttons
 	stateStartHTML+='<input type="button" id="nummerKnapp" value="Sexan" onclick="Starta_Iphone(6)">';	
 	stateStartHTML+='<input type="button" id="nummerKnapp" value="Sjuan" onclick="Starta_Iphone(7)">';	
 	stateStartHTML+='<input type="button" id="nummerKnapp" value=" &#197;ttan" onclick="Starta_Iphone(8)">';	
-	stateStartHTML+='<input type="button" id="nummerKnapp" value="Nian" onclick="Starta_Iphone(9)">';	
+	stateStartHTML+='<input type="button" id="nummerKnapp" value="Nian" onclick="Starta_Iphone(9)">';
+	stateStartHTML+='<input type="button" id="nummerKnapp" value="Nian" onclick="Starta_Iphone(10)">';	//ny kod 1
 	//stateStartHTML+='<table>';
 	//stateStartHTML+='<tr><td>testtext</td></tr>';
 	//stateStartHTML+='</table>';
@@ -55,6 +56,7 @@ else{ //stor skärm får inte radiobuttons heller nu
 	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value="Sjuan" onclick="Starta_Iphone(7)">';	
 	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value=" &#197;ttan" onclick="Starta_Iphone(8)">';	
 	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value="Nian" onclick="Starta_Iphone(9)">';	
+	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value="Tian" onclick="Starta_Iphone(9)">'; //ny kod 1
 	//stateStartHTML+='<table>';
 	//stateStartHTML+='<tr><td>testtext</td></tr>';
 	//stateStartHTML+='</table>';
@@ -122,6 +124,7 @@ if (tabell==6){val_MG="sex";}
 if (tabell==7){val_MG="sju";}
 if (tabell==8){val_MG="atta";}
 if (tabell==9){val_MG="nio";}
+if (tabell==10){val_MG="tio";} //ny kod 1
 Starta();	
 }
 
@@ -215,6 +218,10 @@ function visaEkvation(radioButtonVal){
 			break;
 		case "nio":
 			tabell=9;
+//			slumpTal=Math.floor((Math.random() * 15) + 1);			
+			break;
+		case "tio":
+			tabell=10;
 //			slumpTal=Math.floor((Math.random() * 15) + 1);			
 			break;
 		default:
@@ -434,14 +441,15 @@ document.getElementById("mainsection").innerHTML=stateSvaraHTML;
 
 */ //END ORIGINALKOD
 if(rattSvarForstaForsok_MG==1) {
-	stateSvaraHTML+="<br><br><br><br>"; //flyttar ner texten några rader obs ändra i funktionen visaEkvation rad 135 rad 180 också
+	stateSvaraHTML+="<br><br><br><br>"; //avstånd under ekvation till svarsfält styrs i index.html mainsection div size, dett är för space ovanför ekvationen
 	stateSvaraHTML+="<p>";
 	stateSvaraHTML+=ekvation+" = "+svar;
 	stateSvaraHTML+="</p>";
 	document.getElementById("mainsection").innerHTML=stateSvaraHTML;
+	console.log("html stateSvaraHTLM"+stateSvaraHTML);
 }
 else{  //(nedan rätt anv ''  -  visar orange och feltext när man svarar fel.
-	stateSvaraHTML+='<p>F&#246;rs&#246;k igen!</p>'; //flyttar ner texten några rader obs ändra i funktionen visaEkvation rad 135 rad 180 också
+	stateSvaraHTML+='<p>F&#246;rs&#246;k igen!</p>'; //flyttar ner texten några rader obs ändra i funktionen visaEkvation rad 135 rad 180 också 
 	stateSvaraHTML+='<p class="orange_feltext">';   // ekvationen blir orange om man svarar fel.
 	stateSvaraHTML+=ekvation+" = "+svar;
 	stateSvaraHTML+="</p>";
@@ -548,5 +556,8 @@ function StartaOmIgen(){
 	t1_MG= new Date().getTime();	
 	console.log("val_MG "+val_MG);
 	h=0; //sätts inte detta blir andra tall undefined
-	visaEkvation(val_MG);
+	//man får samma slumptal igen här fixa
+	//visaEkvation(val_MG); //med denna så slumpas det inte på igen-knappen, kör Starta() istället
+	Starta(); //gör att ny tabell slumpas för knapp Igen istället för att få samma serie.
+
 }
