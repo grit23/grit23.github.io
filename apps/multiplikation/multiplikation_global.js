@@ -30,4 +30,5 @@ serie12_MG=[2,3,5,10,4,7,8,1,4,6];
 serie13_MG=[4,7,1,3,10,5,6,9,8,2];
 serie14_MG=[10,2,1,3,5,7,4,6,9,8];
 serie15_MG=[3,2,5,4,6,1,7,9,8,10];
+//lägg till diagnos med alla tabeller i en vector xxx
 rattSvarForstaForsok_MG=1; //för att kunna skilja på svar som är rätt direkt och inte
