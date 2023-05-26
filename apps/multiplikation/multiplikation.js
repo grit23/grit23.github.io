@@ -47,16 +47,16 @@ else{ //stor skärm får inte radiobuttons heller nu
 	
 	stateStartHTML+='<h4 class="ipadTitel">Multiplikationstabeller</h4>'; //iphone view
 	//stateStartHTML+="<br><input type='button' id='nummerKnapp' value='Ettan' onclick='Starta_Iphone(1)>";
-	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value="Ettan" onclick="Starta_Iphone(1)">';
-	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value="Tv&#229;an" onclick="Starta_Iphone(2)">';	
-	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value="Trean" onclick="Starta_Iphone(3)">';	
-	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value="Fyran" onclick="Starta_Iphone(4)">';	
-	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value="Femman" onclick="Starta_Iphone(5)">';	
-	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value="Sexan" onclick="Starta_Iphone(6)">';	
-	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value="Sjuan" onclick="Starta_Iphone(7)">';	
-	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value=" &#197;ttan" onclick="Starta_Iphone(8)">';	
-	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value="Nian" onclick="Starta_Iphone(9)">';	
-	stateStartHTML+='<br><input type="button" id="nummerKnappIpad" value="Tian" onclick="Starta_Iphone(9)">'; //ny kod 1
+	stateStartHTML+='<br><input type="button" id="nummerKnappIpadVanster" value="Ettan" onclick="Starta_Iphone(1)">';
+	stateStartHTML+='<input type="button" id="nummerKnappIpadHoger" value="Tv&#229;an" onclick="Starta_Iphone(2)">';	
+	stateStartHTML+='<input type="button" id="nummerKnappIpadVanster" value="Trean" onclick="Starta_Iphone(3)">';	
+	stateStartHTML+='<input type="button" id="nummerKnappIpadHoger" value="Fyran" onclick="Starta_Iphone(4)">';	
+	stateStartHTML+='<input type="button" id="nummerKnappIpadVanster" value="Femman" onclick="Starta_Iphone(5)">';	
+	stateStartHTML+='<input type="button" id="nummerKnappIpadHoger" value="Sexan" onclick="Starta_Iphone(6)">';	
+	stateStartHTML+='<input type="button" id="nummerKnappIpadVanster" value="Sjuan" onclick="Starta_Iphone(7)">';	
+	stateStartHTML+='<input type="button" id="nummerKnappIpadHoger" value=" &#197;ttan" onclick="Starta_Iphone(8)">';	
+	stateStartHTML+='<input type="button" id="nummerKnappIpadVanster" value="Nian" onclick="Starta_Iphone(9)">';	
+	stateStartHTML+='<input type="button" id="nummerKnappIpadHoger" value="Tian" onclick="Starta_Iphone(9)">'; //ny kod 1
 	//stateStartHTML+='<table>';
 	//stateStartHTML+='<tr><td>testtext</td></tr>';
 	//stateStartHTML+='</table>';
