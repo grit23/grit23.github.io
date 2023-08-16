@@ -1,6 +1,9 @@
 ## Welcome to GitHub Pages
 
-[Till web-apparna](apps/index.html) 
+[Till web-apparna koden](apps/index.html) 
+
+Hemsidan med webapplarna (github pages) (https://grit23.github.io/apps/index.html)
+
 
 You can use the [editor on GitHub](https://github.com/grit23/grit23.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
