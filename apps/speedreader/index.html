@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Display Web App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #333; /* Dark grey background */
+            color: #f1f1f1; /* Light grey text color */
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #inputField {
+            width: 80vw;
+            max-width: 15cm;
+            height: 25vw;
+            max-height: 15cm;
+            font-size: 16px;
+            margin-bottom: 20px;
+            background-color: #555; /* Darker grey input field background */
+            color: #f1f1f1; /* Light grey text color */
+        }
+
+        #outputContainer {
+            font-size: 20px;
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 15cm;
+            height: 10vw;
+            max-height: 50px; /* Fixed height for consistent display */
+            overflow: hidden;
+        }
+
+        #outputText {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        #speedInput {
+            margin-bottom: 30px; /* Increased space above the speed input field */
+            font-size: 16px;
+            padding: 8px; /* Adjust padding for better visibility */
+            background-color: #555; /* Darker grey input field background */
+            color: #f1f1f1; /* Light grey text color */
+        }
+
+        #speedLabel {
+            margin-bottom: 10px; /* Added space below the speed label */
+        }
+
+        #startButton, #stopButton, #demoButton {
+            margin-bottom: 20px;
+            font-size: 18px; /* Increased button text size */
+            font-weight: bold; /* Bold button text */
+            padding: 10px; /* Adjust padding for better visibility */
+            background-color: #1c6b87; /* Petrol color for the buttons */
+            color: #f1f1f1; /* Light grey text color */
+            border-radius: 8px; /* Rounded corners */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <label for="inputField">Paste your text:</label><br>
+        <textarea id="inputField" placeholder="Paste your text here."></textarea>
+
+        <div id="outputContainer">
+            <span id="outputText"></span>
+        </div>
+
+        <div id="speedLabel">
+            <label for="speedInput">Words per minute:</label>
+        </div>
+        
+        <input type="number" id="speedInput" value="60" min="1" max="300" step="1">
+
+        <button id="startButton" onclick="displayWords()">Start Display</button>
+        <button id="stopButton" onclick="stopDisplay()">Stop Display</button>
+        <button id="demoButton" onclick="addDemoText()">Add Demo Text</button>
+    </div>
+
+    <script>
+        let intervalId;
+
+        function displayWords() {
+            stopDisplay();  // Stop previous display if any
+
+            let inputText = document.getElementById("inputField").value;
+            let words = inputText.split(/\s+/);
+
+            let speed = document.getElementById("speedInput").value;
+            let interval = 60000 / speed;
+
+            let outputText = document.getElementById("outputText");
+            outputText.innerHTML = "";  // Clear previous content
+
+            let index = 0;
+            intervalId = setInterval(function () {
+                if (index < words.length) {
+                    outputText.innerHTML = words[index];
+                    index++;
+                } else {
+                    clearInterval(intervalId);
+                    outputText.innerHTML = "";  // Clear the last word
+                }
+            }, interval);
+        }
+
+        function stopDisplay() {
+            clearInterval(intervalId);
+        }
+
+        function addDemoText() {
+            // Provided demo text and source
+            document.getElementById("inputField").value =
+                "Why Would Anyone Run an Ultra?\n" +
+                "People run ultra marathons for a variety of reasons. For some, it’s about testing their physical and mental limits, pushing beyond what they thought was possible. For others, it’s a chance to explore new places and connect with nature. Some ultra runners find it meditative, while others enjoy the camaraderie and sense of community that comes with being part of the ultra running community.\n" +
+                "Source: https://runningmatter.com/ultra-running-demystified-everything-you-need-to-know/#:~:text=Why%20Would%20Anyone%20Run%20an%20Ultra%3F%20People%20run,to%20explore%20new%20places%20and%20connect%20with%20nature.";
+        }
+    </script>
+
+</body>
+</html>
 
