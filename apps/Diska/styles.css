@@ -1,0 +1,62 @@
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Fun font */
+    margin: 0;
+    padding: 0;
+    background-color: #424242; /* Dark grey background outside the frame */
+    color: #333;
+    padding-top: 50px; /* Move the content down */
+}
+
+.frame {
+    border: 10px solid #ff4081; /* Pink frame around the page */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Shadow effect for depth */
+    background-color: #e0f7fa; /* Light cyan background inside the frame */
+    padding: 20px; /* Padding inside the frame */
+    margin: 0 auto; /* Center the frame */
+    max-width: 800px; /* Set a maximum width for the frame */
+}
+
+header {
+    background: #00796b; /* Teal header */
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: 5px solid #004d40; /* Darker teal border */
+}
+
+h1 {
+    font-size: 2.5em; /* Larger header text */
+    text-shadow: 2px 2px #c62828; /* Shadow effect */
+}
+
+h2 {
+    font-size: 4em; /* Make the name larger */
+    color: #ff4081; /* Bright pink color for the name */
+    text-align: center;
+    margin-top: 20px;
+    animation: blink 2s infinite; /* Set blinking animation to 2 seconds */
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+p {
+    font-size: 1.2em; /* Slightly larger text for day and date */
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2em; /* Adjust size for smaller screens */
+    }
+
+    h2 {
+        font-size: 3em; /* Adjust size for smaller screens */
+    }
+}
