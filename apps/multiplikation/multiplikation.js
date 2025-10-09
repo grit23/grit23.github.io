@@ -26,7 +26,7 @@ var stateStartHTML='<a href="../index.html"><table><tr><td><span style="font-siz
 //slut menyknapp
 if(screen.height<800) //iphone får knappar inte radio buttons
 	{
-	stateStartHTML+='<h4>Multiplikationstabeller</h4>'; //iphone view
+	stateStartHTML+='<h4>Multiplikation</h4>'; //iphone view
 	//stateStartHTML+="<br><input type='button' id='nummerKnapp' value='Ettan' onclick='Starta_Iphone(1)>";
 	stateStartHTML+='<input type="button" id="nummerKnapp" value="Ettan" onclick="Starta_Iphone(1)">';
 	stateStartHTML+='<input type="button" id="nummerKnapp" value="Tv&#229;an" onclick="Starta_Iphone(2)">';	
