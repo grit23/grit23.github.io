@@ -45,7 +45,7 @@ if(screen.height<800) //iphone får knappar inte radio buttons
 	}
 else{ //stor skärm får inte radiobuttons heller nu
 	
-	stateStartHTML+='<h4 class="ipadTitel">Multiplikationstabeller</h4>'; //iphone view
+	stateStartHTML+='<h4 class="ipadTitel">Multiplikation</h4>'; //iphone view
 	//stateStartHTML+="<br><input type='button' id='nummerKnapp' value='Ettan' onclick='Starta_Iphone(1)>";
 	stateStartHTML+='<br><input type="button" id="nummerKnappIpadVanster" value="Ettan" onclick="Starta_Iphone(1)">';
 	stateStartHTML+='<input type="button" id="nummerKnappIpadHoger" value="Tv&#229;an" onclick="Starta_Iphone(2)">';	
