@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>Nordamerikas Länder och Huvudstäder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f9f9f9;
+        }
+        h1 {
+            color: #2a5d84;
+            font-size: 1.5em;
+            text-align: center;
+        }
+        .table-container {
+            max-width: 100%;
+            overflow-x: auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            margin: 0 auto;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 320px;
+        }
+        th, td {
+            border: 1px solid #888;
+            padding: 10px 8px;
+            text-align: left;
+            font-size: 1em;
+        }
+        th {
+            background-color: #e3f0fa;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.1em;
+            }
+            th, td {
+                font-size: 0.95em;
+                padding: 8px 6px;
+            }
+            .table-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Nordamerikas Länder och Huvudstäder</h1>
+    <div class="table-container">
+        <table id="countryTable">
+            <thead>
+                <tr>
+                    <th>Land</th>
+                    <th>Huvudstad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rader läggs till med JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const countries = [
+            { land: "Kanada", huvudstad: "Ottawa" },
+            { land: "USA (Förenta staterna)", huvudstad: "Washington, D.C." },
+            { land: "Mexiko", huvudstad: "Mexico City" },
+            { land: "Guatemala", huvudstad: "Guatemala City" },
+            { land: "Belize", huvudstad: "Belmopan" },
+            { land: "Honduras", huvudstad: "Tegucigalpa" },
+            { land: "El Salvador", huvudstad: "San Salvador" },
+            { land: "Nicaragua", huvudstad: "Managua" },
+            { land: "Costa Rica", huvudstad: "San José" },
+            { land: "Panama", huvudstad: "Panama City" },
+            { land: "Bahamas", huvudstad: "Nassau" },
+            { land: "Kuba", huvudstad: "Havanna" },
+            { land: "Jamaica", huvudstad: "Kingston" },
+            { land: "Haiti", huvudstad: "Port-au-Prince" },
+            { land: "Dominikanska republiken", huvudstad: "Santo Domingo" },
+            { land: "Saint Kitts och Nevis", huvudstad: "Basseterre" },
+            { land: "Antigua och Barbuda", huvudstad: "Saint John's" },
+            { land: "Dominica", huvudstad: "Roseau" },
+            { land: "Saint Lucia", huvudstad: "Castries" },
+            { land: "Saint Vincent och Grenadinerna", huvudstad: "Kingstown" },
+            { land: "Grenada", huvudstad: "St. George's" },
+            { land: "Barbados", huvudstad: "Bridgetown" },
+            { land: "Trinidad och Tobago", huvudstad: "Port of Spain" }
+        ];
+
+        const tableBody = document.getElementById('countryTable').getElementsByTagName('tbody')[0];
+
+        countries.forEach(country => {
+            const row = document.createElement('tr');
+            const landCell = document.createElement('td');
+            landCell.textContent = country.land;
+            const huvudstadCell = document.createElement('td');
+            huvudstadCell.textContent = country.huvudstad;
+            row.appendChild(landCell);
+            row.appendChild(huvudstadCell);
+            tableBody.appendChild(row);
+        });
+    </script>
+</body>
+</html>
