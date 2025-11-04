@@ -1,115 +1,147 @@
 <!DOCTYPE html>
-<html>
-<title>Eriks webappar</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="w3.css">
-<link rel="stylesheet" href="w3-theme-teal.css">
-<body style="max-width:400px;background-color: #f1f1f1;margin:32px;border:1px solid #ccc">
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <title>Eriks webappar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- W3.CSS och tema -->
+  <link rel="stylesheet" href="w3.css">
+  <link rel="stylesheet" href="w3-theme-teal.css">
+  <style>
+    body {
+      background-color: #f1f1f1;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 32px auto;
+      padding: 16px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .apps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 600px) {
+      .apps-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .app-card {
+      background: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      min-height: 220px;
+    }
+    .app-card:hover {
+      box-shadow: 0 4px 16px rgba(0,128,128,0.15);
+      background: #e0f7fa;
+    }
+    .app-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    .app-card h3 {
+      margin: 0 0 8px 0;
+      font-size: 1.2em;
+      color: #00796b;
+    }
+    .app-card p {
+      font-size: 0.98em;
+      color: #444;
+      margin: 0 16px 16px 16px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 32px;
+      color: #666;
+      font-size: 0.95em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="w3-container w3-card-4 w3-theme">
+      <h1>Eriks webappar</h1>
+    </header>
+    <div class="w3-section apps-grid">
 
-<header class="w3-container w3-card-4 w3-theme">
-  <h1>
-  <i class="w3-opennav fa fa-bars" onclick="w3_open()"></i>
-  Eriks webappar</h1>
-</header>
+      <!-- Proteinräknare -->
+      <a href="protein/index.html" class="app-card">
+        <img src="protein.png" alt="Proteinräknare">
+        <h3>Proteinräknare</h3>
+        <p>Enkel beräkning av protein du ätit under en dag.</p>
+      </a>
 
-<div class="w3-container w3-section">
-<br>
+      <!-- Speed Reader -->
+      <a href="speedreader/index.html" class="app-card">
+        <img src="protein.png" alt="Speed Reader">
+        <h3>Speed Reader</h3>
+        <p>Öva speed reading.</p>
+      </a>
 
-<a href="protein/index.html">
-<div class="w3-row w3-card-4">
-  <div class="w3-col s3">
-    <img src="protein.png" style="width:100%">
-  </div>
-  <div class="w3-col s9 w3-container">
-    <h3>Proteinr&#228;knare</h3>
-    <p>Enkel ber&#228;kning av protein du &#228;tit under en dag.</p>
-  </div>
-</div>
-</a>
-<br>
-    
+      <!-- Multiplikation -->
+      <a href="multiplikation/index.html" class="app-card">
+        <img src="multiplikation.png" alt="Multiplikation">
+        <h3>Multiplikation</h3>
+        <p>Multiplikationstabeller på tid.</p>
+      </a>
 
-<a href="speedreader/index.html">
-<div class="w3-row w3-card-4">
-  <div class="w3-col s3">
-    <img src="protein.png" style="width:100%">
-  </div>
-  <div class="w3-col s9 w3-container">
-    <h3>Speed Reader</h3>
-    <p>&Ouml;va speed reading.</p>
-  </div>
-</div>
-</a>
-<br>
-    
-<a href="multiplikation/index.html">
-<div class="w3-row w3-card-4">
-  <div class="w3-col s3">
-    <img src="multiplikation.png" style="width:100%">
-  </div>
-  <div class="w3-col s9 w3-container">
-    <h3>Multiplikation</h3>
-    <p>Multiplikationstabeller p&#229; tid.</p>
-  </div>
-</div>
-</a>
-<br>
-  
-<!--
-<hr>
--->
-<a href="10/index.html">
-<div class="w3-row w3-card-4">
-  <div class="w3-col s3">
-    <img src="10.png" style="width:100%">
-  </div>
-  <div class="w3-col s9 w3-container">
-    <h3>10-tals&#246;verg&#229;ng</h3>
-    <p>Tr&#228;na matte i andra klass - Svara p&#229; 10 tal f&#246;r att se ditt resultat.</p>
-  </div>
-</div>
-</a>
-<br>
-<!--
-<hr>
--->
-<a href="ballTest/">
-<div class="w3-row w3-card-4">
-  <div class="w3-col s3">
-    <img src="balltest.png" style="width:100%">
-  </div>
-  <div class="w3-col s9 w3-container">
-    <h3>Ball test</h3>
-    <p>Skjut ner s&#229; m&#229;nga bollar du kan!</p>
-  </div>
-</div>  
-</a>
-<br>
+      <!-- 10-talsövergång -->
+      <a href="10/index.html" class="app-card">
+        <img src="10.png" alt="10-talsövergång">
+        <h3>10-talsövergång</h3>
+        <p>Träna matte i andra klass - Svara på 10 tal för att se ditt resultat.</p>
+      </a>
 
-<!--
-<hr>
--->
+      <!-- Ball test -->
+      <a href="ballTest/" class="app-card">
+        <img src="balltest.png" alt="Ball test">
+        <h3>Ball test</h3>
+        <p>Skjut ner så många bollar du kan!</p>
+      </a>
 
-<a href="figurbilder/index.html">
-<div class="w3-row w3-card-4">
-  <div class="w3-col s3">
-    <img src="figurbilder.png" style="width:100%">
+      <!-- Figurbilder -->
+      <a href="figurbilder/index.html" class="app-card">
+        <img src="figurbilder.png" alt="Figurbilder">
+        <h3>Figurbilder</h3>
+        <p>Minnesteknik - Visar en siffra och sen minnesbilden. Öva, öva, öva, sen kommer du kunna komma ihåg siffror genom att se bilderna.</p>
+      </a>
+
+      <!-- Sydamerika -->
+      <a href="https://grit23.github.io/apps/sydamerika/" class="app-card" target="_blank">
+        <img src="sydamerika.png" alt="Sydamerika">
+        <h3>Sydamerika</h3>
+        <p>Geografi: Träna på Sydamerikas länder och huvudstäder.</p>
+      </a>
+
+      <!-- Nordamerika -->
+      <a href="https://grit23.github.io/apps/Nordamerika/" class="app-card" target="_blank">
+        <img src="nordamerika.png" alt="Nordamerika">
+        <h3>Nordamerika</h3>
+        <p>Geografi: Träna på Nordamerikas länder och huvudstäder.</p>
+      </a>
+
+    </div>
+    <footer>
+      <p>Copyright Erik 2018</p>
+    </footer>
   </div>
-  <div class="w3-col s9 w3-container">
-    <h3>Figurbilder</h3>
-    <p>Minnesteknik - Visar en siffra och sen minnesbilden. &#214;va, &#246;va, &#246;va, sen kommer du kunna komma ih&#229;g siffor genom att se bliderna.</p>
-  </div>
-</div>
-</a>
-
-</div>
-
-<footer class="w3-container w3-theme-l2" style="position:relative">
-  <a class="w3-btn-floating-large w3-theme-action w3-right" style="position:absolute;top:-28px;right:16px;">+</a>
-  <p>Copyright Erik 2018</p>
-</footer>
-<!--
-<div class="w3-container w3-theme-dark w3-xlarge">«<span class="w3-right">»</span></div>
--->
 </body>
-</html> 
+</html>
