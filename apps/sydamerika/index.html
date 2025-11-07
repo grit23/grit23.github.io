@@ -143,17 +143,18 @@
                 padding: 6px 10px;
                 font-size: 1em;
             }
+            .bottom-link-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
         }
         .bottom-link-container {
-            position: fixed;
-            bottom: 18px;
-            z-index: 10;
-        }
-        .bottom-link.left {
-            left: 18px;
-        }
-        .bottom-link.right {
-            right: 18px;
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 32px auto 0 auto;
+            padding: 0 18px;
         }
         .bottom-link {
             display: inline-block;
@@ -166,14 +167,6 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.10);
             font-size: 1em;
             transition: background 0.3s, color 0.3s;
-            position: fixed;
-            bottom: 18px;
-        }
-        .bottom-link.left {
-            left: 18px;
-        }
-        .bottom-link.right {
-            right: 18px;
         }
         .bottom-link:hover {
             background: linear-gradient(90deg, #185a9d 0%, #43cea2 100%);
@@ -189,8 +182,10 @@
         <div class="score" id="scoreDisplay">Antal: 0</div>
     </div>
     <div class="flashcards-container" id="flashcardsContainer"></div>
-    <a class="bottom-link left" href="lista_sydamerika.html">Lista – Alla länder</a>
-    <a class="bottom-link right" href="https://grit23.github.io/apps/index.html" target="_blank">Till alla appar</a>
+    <div class="bottom-link-container">
+        <a class="bottom-link left" href="lista_sydamerika.html">Lista – Alla länder</a>
+        <a class="bottom-link right" href="https://grit23.github.io/apps/index.html" target="_blank">Till alla appar</a>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
