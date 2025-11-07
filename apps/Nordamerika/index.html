@@ -153,6 +153,46 @@
                 font-size: 1em;
             }
         }
+        /* --- Updated for bottom links that scroll with the page --- */
+        .bottom-link-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 18px 24px 18px 24px;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+            margin-top: 32px;
+            margin-bottom: 0;
+        }
+        .bottom-link {
+            color: #2a5d84;
+            background: #e3f0fa;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
+            transition: background 0.3s, color 0.3s;
+        }
+        .bottom-link:hover {
+            background: #2a5d84;
+            color: #fff;
+        }
+        .bottom-link.left {
+            margin-right: auto;
+        }
+        .bottom-link.right {
+            margin-left: auto;
+        }
+        @media (max-width: 600px) {
+            .bottom-link-container {
+                padding: 12px 8px;
+            }
+            .bottom-link {
+                font-size: 0.95em;
+                padding: 8px 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -162,8 +202,14 @@
         <div class="score" id="scoreDisplay">Antal: 0</div>
     </div>
     <div class="flashcards-container" id="flashcardsContainer"></div>
+      
+
+    <!-- Bottom links that scroll with the page -->
+    <div class="bottom-link-container">
+        <a class="bottom-link left" href="lista_sydamerika.html">Lista – Alla länder</a>
+        <a class="bottom-link right" href="https://grit23.github.io/apps/index.html" target="_blank">Till alla appar</a>
+    </div>
     <script src="script.js"></script>
-    <br><a href="Lista.html">Lista - Alla länder</a>
-    <br>Version 1.0
+
 </body>
 </html>
