@@ -1,0 +1,452 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Major System Trainer — Single File</title>
+  <style>
+    :root { --bg:#0f172a; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --accent:#60a5fa; --success:#22c55e; --error:#ef4444; }
+    * { box-sizing: border-box; }
+    html, body { height:100%; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background: linear-gradient(180deg, #0b1020, var(--bg)); color: var(--text); }
+
+    /* Topbar */
+    .topbar { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-bottom:1px solid #1f2937; position:sticky; top:0; background:#0f172a; }
+    .brand { display:flex; align-items:center; gap:8px; }
+    .logo-dot { width:10px; height:10px; background:var(--accent); border-radius:50%; display:inline-block; }
+    .actions { display:flex; gap:8px; }
+    .icon-btn { display:inline-flex; align-items:center; gap:8px; color:var(--text); text-decoration:none; padding:6px 10px; border:1px solid #1f2937; border-radius:8px; background:#0b1222; cursor:pointer; }
+    .icon-btn:hover { border-color:#334155; }
+    .icon-btn svg { color:var(--accent); }
+
+    main { max-width: 900px; margin: 0 auto; padding: 16px; }
+
+    /* Trainer view */
+    .status { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+    .toggle { display:inline-flex; align-items:center; gap:6px; margin-right:12px; color:var(--muted); }
+    .card { margin:16px 0; background:var(--card); border-radius:12px; padding:24px; box-shadow:0 10px 30px rgba(0,0,0,0.25); }
+    .word { font-size:48px; font-weight:700; letter-spacing:1px; text-align:center; }
+    .hint { margin-top:8px; text-align:center; color:var(--muted); min-height:22px; }
+    #answerForm { display:flex; gap:8px; margin-top:16px; justify-content:center; flex-wrap:wrap; }
+    #answer { width:260px; padding:12px 14px; border:1px solid #1f2937; background:#0b1222; color:var(--text); border-radius:8px; font-size:18px; }
+    button { cursor:pointer; border:none; padding:10px 14px; border-radius:8px; }
+    button.primary { background:var(--accent); color:#031125; font-weight:600; }
+    #nextInline { background:#1f2937; color:var(--text); }
+    #nextInline:hover { background:#2b3443; }
+    #skip { background:#374151; color:var(--text); }
+    .controls { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .feedback { margin-top:12px; text-align:center; min-height:24px; }
+    .feedback.ok { color: var(--success); }
+    .feedback.err { color: var(--error); }
+
+    /* Reference view */
+    .reference { margin-top:24px; }
+    .grid { display:grid; grid-template-columns: repeat(5, 1fr); gap:8px; }
+    .cell { background:#0b1222; padding:10px; border-radius:8px; border:1px solid #1f2937; }
+    .note, .tip { color:var(--muted); }
+    .table { margin: 16px auto; }
+    .row { display:grid; grid-template-columns: 60px 1fr; gap:8px; padding:10px; border-bottom: 1px solid #1f2937; }
+    .row:nth-child(even){ background:#0b1222; }
+    .col-0 { font-weight:700; }
+
+    /* View toggling */
+    #view-trainer { display:block; }
+    #view-reference { display:none; }
+    .hidden { display:none !important; }
+
+    footer { text-align:center; color:var(--muted); padding:24px; }
+  </style>
+
+  <script>
+  // Single-file script
+  window.addEventListener('DOMContentLoaded', () => {
+    const STORAGE_KEY = 'major-system-trainer@single-v1';
+
+    // ===== Helpers & core mapping =====
+    const vowels = new Set(["a","e","i","o","u","å","ä","ö"]);
+    const ignored = new Set(["h","w","y"]);
+    const isSoftC = next => ["e","i","y"].includes(next);
+    const isSoftG = next => ["e","i","y"].includes(next);
+
+    function pushCode(arr, code, opts) {
+      if (opts.dedupe && arr.length && arr[arr.length-1] === String(code)) return;
+      arr.push(String(code));
+    }
+
+    function majorEncode(word, opts = { dedupe:true, ngAsN:true }) {
+      const w = (word || '').toLowerCase().replace(/[^a-zåäö]/g, '');
+      let codes = []; let i = 0;
+      while (i < w.length) {
+        const ch = w[i]; const next = w[i+1] || '';
+        if (vowels.has(ch) || ignored.has(ch)) { i++; continue; }
+        if (ch === 'c' && next === 'k') { pushCode(codes, 7, opts); i += 2; continue; }
+        if (ch === 'p' && next === 'h') { pushCode(codes, 8, opts); i += 2; continue; }
+        if (ch === 't' && next === 'h') { pushCode(codes, 1, opts); i += 2; continue; }
+        if (ch === 'c' && next === 'h') { pushCode(codes, 6, opts); i += 2; continue; }
+        if (ch === 's' && next === 'h') { pushCode(codes, 6, opts); i += 2; continue; }
+        if (ch === 'n' && next === 'g') { if (opts.ngAsN) { pushCode(codes, 2, opts); i += 2; continue; } }
+        switch (ch) {
+          case 'b': case 'p': pushCode(codes, 9, opts); break;
+          case 't': case 'd': pushCode(codes, 1, opts); break;
+          case 'f': case 'v': pushCode(codes, 8, opts); break;
+          case 'j': pushCode(codes, 6, opts); break;
+          case 'q': case 'k': pushCode(codes, 7, opts); break;
+          case 'l': pushCode(codes, 5, opts); break;
+          case 'm': pushCode(codes, 3, opts); break;
+          case 'n': pushCode(codes, 2, opts); break;
+          case 'r': pushCode(codes, 4, opts); break;
+          case 's': case 'z': pushCode(codes, 0, opts); break;
+          case 'x': pushCode(codes, 7, opts); pushCode(codes, 0, opts); break; // ks -> 70
+          case 'c': pushCode(codes, isSoftC(next) ? 0 : 7, opts); break;
+          case 'g': pushCode(codes, isSoftG(next) ? 6 : 7, opts); break;
+          default: break;
+        }
+        i++;
+      }
+      return codes.join('');
+    }
+
+    function explainEncoding(word, opts) {
+      const w = (word || '').toLowerCase().replace(/[^a-zåäö]/g, '');
+      let parts = []; let i = 0;
+      const push = (frag, code) => parts.push(`${frag} → ${code}`);
+      while (i < w.length) {
+        const ch = w[i]; const next = w[i+1] || '';
+        if (vowels.has(ch) || ignored.has(ch)) { i++; continue; }
+        if (ch === 'c' && next === 'k') { push('ck', 7); i += 2; continue; }
+        if (ch === 'p' && next === 'h') { push('ph', 8); i += 2; continue; }
+        if (ch === 't' && next === 'h') { push('th', 1); i += 2; continue; }
+        if (ch === 'c' && next === 'h') { push('ch', 6); i += 2; continue; }
+        if (ch === 's' && next === 'h') { push('sh', 6); i += 2; continue; }
+        if (ch === 'n' && next === 'g') { if (opts.ngAsN) { push('ng', 2); i += 2; continue; } }
+        switch (ch) {
+          case 'b': case 'p': push(ch, 9); break;
+          case 't': case 'd': push(ch, 1); break;
+          case 'f': case 'v': push(ch, 8); break;
+          case 'j': push(ch, 6); break;
+          case 'q': case 'k': push(ch, 7); break;
+          case 'l': push(ch, 5); break;
+          case 'm': push(ch, 3); break;
+          case 'n': push(ch, 2); break;
+          case 'r': push(ch, 4); break;
+          case 's': case 'z': push(ch, 0); break;
+          case 'x': push('x (k)', 7); push('x (s)', 0); break;
+          case 'c': push(`c(${isSoftC(next)?'soft':'hard'})`, isSoftC(next) ? 0 : 7); break;
+          case 'g': push(`g(${isSoftG(next)?'soft':'hard'})`, isSoftG(next) ? 6 : 7); break;
+          default: break;
+        }
+        i++;
+      }
+      if (opts.dedupe) {
+        const deduped = [];
+        for (const p of parts) {
+          const code = p.split('→')[1].trim();
+          if (deduped.length && deduped[deduped.length-1].split('→')[1].trim() === code) continue;
+          deduped.push(p);
+        }
+        return deduped.join(' · ');
+      }
+      return parts.join(' · ');
+    }
+
+    // ===== Word packs =====
+    const EN_WORDS = [
+      'sun','map','door','leaf','river','smile','team','note','milk','rope',
+      'memory','puzzle','logic','focus','driver','basket','figure','camera','vintage','digital',
+      'attention','structure','algorithm','phonetics','challenge','navigation','framework','container'
+    ];
+    const SV_WORDS = [
+      'sol','karta','dörr','löv','flod','lag','mjölk','rep','bok','båt','ring','natt','mål','fisk','varg','logik','fokus',
+      'kamera','förare','korgar','minnet','respekt','kapsel','vektor','svenska','maskin','ledning','program','drömmar',
+      'uppmärksamhet','strukturer','utmaningen','navigation','ramverket','behållare','konfiguration','databasens','förpackning','tillverkning'
+    ];
+    const wordsForPack = pack => pack === 'sv' ? SV_WORDS : EN_WORDS;
+
+    function pickWord(diff, pack) {
+      const WORDS = wordsForPack(pack);
+      const filtered = WORDS.filter(w => {
+        const len = w.length;
+        if (diff === 'short') return len >= 3 && len <= 5;
+        if (diff === 'medium') return len >= 6 && len <= 8;
+        if (diff === 'long') return len >= 9;
+        return true;
+      });
+      const list = filtered.length ? filtered : WORDS;
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    // ===== Elements =====
+    const els = {
+      // view toggles
+      openRef: document.getElementById('openRef'),
+      backToApp: document.getElementById('backToApp'),
+      viewTrainer: document.getElementById('view-trainer'),
+      viewReference: document.getElementById('view-reference'),
+
+      // trainer
+      word: document.getElementById('word'),
+      hint: document.getElementById('hint'),
+      answer: document.getElementById('answer'),
+      form: document.getElementById('answerForm'),
+      nextInline: document.getElementById('nextInline'),
+      skip: document.getElementById('skip'),
+      score: document.getElementById('score'),
+      streak: document.getElementById('streak'),
+      total: document.getElementById('total'),
+      feedback: document.getElementById('feedback'),
+      difficulty: document.getElementById('difficulty'),
+      showHints: document.getElementById('showHints'),
+      dedupe: document.getElementById('dedupe'),
+      ngAsN: document.getElementById('ngAsN'),
+      pack: document.getElementById('pack'),
+    };
+
+    let appState = { current:'', correctCode:'', score:0, streak:0, total:0 };
+
+    function saveState() {
+      const data = {
+        state: { current: appState.current, score: appState.score, streak: appState.streak, total: appState.total },
+        options: { dedupe: els.dedupe.checked, ngAsN: els.ngAsN.checked, showHints: els.showHints.checked, difficulty: els.difficulty.value, pack: els.pack.value }
+      };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+    }
+    function loadState() {
+      try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : null; } catch(e) { return null; }
+    }
+
+    function renderWord(newWord) {
+      appState.current = newWord;
+      const opts = { dedupe: els.dedupe.checked, ngAsN: els.ngAsN.checked };
+      appState.correctCode = majorEncode(newWord, opts);
+      els.word.textContent = newWord;
+      els.hint.textContent = els.showHints.checked ? explainEncoding(newWord, opts) : '';
+      els.answer.value = '';
+      els.feedback.textContent = '';
+      els.answer.focus();
+      saveState();
+    }
+    function nextWord() { renderWord(pickWord(els.difficulty.value, els.pack.value)); }
+
+    // ===== Events =====
+    // Submit: pause on wrong
+    els.form.addEventListener('submit', e => {
+      e.preventDefault();
+      const val = (els.answer.value || '').trim();
+      appState.total += 1;
+
+      if (val === appState.correctCode) {
+        appState.score += 1; appState.streak += 1;
+        els.feedback.textContent = `✅ Correct! ${appState.current} → ${appState.correctCode}`;
+        els.feedback.className = 'feedback ok';
+        els.score.textContent = appState.score;
+        els.streak.textContent = appState.streak;
+        els.total.textContent = appState.total;
+        saveState();
+        setTimeout(nextWord, 900);
+      } else {
+        appState.streak = 0;
+        els.feedback.textContent = `❌ ${val || '(empty)'} is not correct. ${appState.current} → ${appState.correctCode}`;
+        els.feedback.className = 'feedback err';
+        els.score.textContent = appState.score;
+        els.streak.textContent = appState.streak;
+        els.total.textContent = appState.total;
+        saveState();
+        // Do NOT auto-advance. Wait for Next word.
+      }
+    });
+
+    els.nextInline.addEventListener('click', () => { nextWord(); });
+    els.skip.addEventListener('click', () => { appState.streak = 0; saveState(); nextWord(); });
+
+    ;[els.showHints, els.dedupe, els.ngAsN, els.difficulty, els.pack].forEach(el => {
+      el.addEventListener('change', () => {
+        const opts = { dedupe: els.dedupe.checked, ngAsN: els.ngAsN.checked };
+        appState.correctCode = majorEncode(appState.current, opts);
+        els.hint.textContent = els.showHints.checked ? explainEncoding(appState.current, opts) : '';
+        saveState();
+      });
+    });
+
+    // View toggling (no navigation, keeps state)
+    els.openRef.addEventListener('click', () => {
+      els.viewTrainer.style.display = 'none';
+      els.viewReference.style.display = 'block';
+    });
+    els.backToApp.addEventListener('click', () => {
+      els.viewReference.style.display = 'none';
+      els.viewTrainer.style.display = 'block';
+    });
+
+    window.addEventListener('beforeunload', saveState);
+
+    // Init
+    const saved = loadState();
+    if (saved) {
+      const { state, options } = saved;
+      if (options) {
+        els.dedupe.checked = !!options.dedupe;
+        els.ngAsN.checked = !!options.ngAsN;
+        els.showHints.checked = !!options.showHints;
+        els.difficulty.value = options.difficulty || 'auto';
+        els.pack.value = options.pack || 'sv';
+      }
+      if (state) {
+        appState.score = state.score || 0;
+        appState.streak = state.streak || 0;
+        appState.total = state.total || 0;
+        els.score.textContent = appState.score;
+        els.streak.textContent = appState.streak;
+        els.total.textContent = appState.total;
+        if (state.current) { renderWord(state.current); return; }
+      }
+    } else {
+      els.pack.value = 'sv';
+    }
+    nextWord();
+  });
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo-dot"></span>
+      <strong>Major System Trainer</strong>
+    </div>
+    <nav class="actions">
+      <!-- Open embedded reference view -->
+      <button id="openRef" class="icon-btn" title="Open Major System Reference" aria-label="Open Major System Reference">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M6 2h9a3 3 0 0 1 3 3v14.5a.5.5 0 0 1-.8.4l-2.4-1.8-2.4 1.8a.5.5 0 0 1-.3.1.5.5 0 0 1-.5-.5V5a1 1 0 0 0-1-1H6a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h11v2H6a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4z"/>
+        </svg>
+        <span>Reference</span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Trainer view -->
+    <section id="view-trainer">
+      <section class="game">
+        <div class="status">
+          <div>
+            <strong>Score:</strong> <span id="score">0</span>
+            <strong>Streak:</strong> <span id="streak">0</span>
+            <strong>Total:</strong> <span id="total">0</span>
+          </div>
+          <div>
+            <label class="toggle">
+              <input type="checkbox" id="showHints" />
+              <span>Show encoding hints</span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" id="dedupe" checked />
+              <span>Dedupe repeated sounds</span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" id="ngAsN" checked />
+              <span>Treat "ng" as N (2)</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="word" id="word">memory</div>
+          <div class="hint" id="hint"></div>
+          <form id="answerForm" autocomplete="off">
+            <input type="text" id="answer" inputmode="numeric" placeholder="Enter number" />
+            <button type="submit" class="primary">Submit</button>
+            <button type="button" id="nextInline">Next word</button>
+            <button type="button" id="skip">Skip</button>
+          </form>
+          <div id="feedback" class="feedback"></div>
+        </div>
+
+        <div class="controls">
+          <label>
+            Difficulty:
+            <select id="difficulty">
+              <option value="auto">Auto</option>
+              <option value="short">Short (3–5 letters)</option>
+              <option value="medium">Medium (6–8)</option>
+              <option value="long">Long (9+)</option>
+            </select>
+          </label>
+          <label>
+            Word pack:
+            <select id="pack">
+              <option value="en">English</option>
+              <option value="sv">Svenska</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="reference inline">
+        <h2>Major System Mapping</h2>
+        <div class="grid">
+          <div class="cell"><strong>0</strong> — s, z, soft c</div>
+          <div class="cell"><strong>1</strong> — t, d, th</div>
+          <div class="cell"><strong>2</strong> — n (ng optional)</div>
+          <div class="cell"><strong>3</strong> — m</div>
+          <div class="cell"><strong>4</strong> — r</div>
+          <div class="cell"><strong>5</strong> — l</div>
+          <div class="cell"><strong>6</strong> — j, sh, ch, soft g</div>
+          <div class="cell"><strong>7</strong> — k, hard c, hard g, q</div>
+          <div class="cell"><strong>8</strong> — f, v, ph</div>
+          <div class="cell"><strong>9</strong> — p, b</div>
+        </div>
+        <p class="note"><em>Vowels (a, e, i, o, u — and å, ä, ö) and the letters h, w, y are ignored. Simple heuristics handle c/g softness; x as ks (70); and ng is configurable.</em></p>
+      </section>
+    </section>
+
+    <!-- Embedded reference view -->
+    <section id="view-reference">
+      <header class="ref-header" style="display:flex; align-items:center; justify-content:space-between; gap:12px; border-bottom: 1px solid #1f2937; padding:10px 0;">
+        <div class="left" style="display:flex; align-items:center; gap:8px;">
+          <button id="backToApp" class="icon-btn" title="Back to Trainer" aria-label="Back to Trainer">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3l9-8z"/>
+            </svg>
+            <span>Back to app</span>
+          </button>
+          <h1 class="ref-title" style="margin:0; font-size:18px;">Major System Reference</h1>
+        </div>
+      </header>
+
+      <section class="reference">
+        <div class="grid">
+          <div class="cell"><strong>0</strong> — s, z, soft c</div>
+          <div class="cell"><strong>1</strong> — t, d, th</div>
+          <div class="cell"><strong>2</strong> — n (ng optional)</div>
+          <div class="cell"><strong>3</strong> — m</div>
+          <div class="cell"><strong>4</strong> — r</div>
+          <div class="cell"><strong>5</strong> — l</div>
+          <div class="cell"><strong>6</strong> — j, sh, ch, soft g</div>
+          <div class="cell"><strong>7</strong> — k, hard c, hard g, q</div>
+          <div class="cell"><strong>8</strong> — f, v, ph</div>
+          <div class="cell"><strong>9</strong> — p, b</div>
+        </div>
+        <p class="tip"><em>Vowels (a, e, i, o, u — and å, ä, ö) and the letters h, w, y are ignored. This is a phonetic system; pronunciation can affect mapping. Your quiz progress is saved locally.</em></p>
+      </section>
+
+      <section class="table">
+        <div class="row"><div class="col-0">0</div><div>s, z, soft c ("cell"); examples: soda → 01, lazy → 50.</div></div>
+        <div class="row"><div class="col-0">1</div><div>t, d, th; examples: tea → 1, date → 11.</div></div>
+        <div class="row"><div class="col-0">2</div><div>n (and optionally ng); examples: noon → 2, ring → 42 (or 4 with ng→2).</div></div>
+        <div class="row"><div class="col-0">3</div><div>m; examples: mama → 33.</div></div>
+        <div class="row"><div class="col-0">4</div><div>r; examples: ray → 4, arrow → 4.</div></div>
+        <div class="row"><div class="col-0">5</div><div>l; examples: lily → 55.</div></div>
+        <div class="row"><div class="col-0">6</div><div>j, sh, ch, soft g; examples: chef → 68, gem → 63.</div></div>
+        <div class="row"><div class="col-0">7</div><div>k, hard c, hard g, q; examples: cake → 77, codec → 707.</div></div>
+        <div class="row"><div class="col-0">8</div><div>f, v, ph; examples: fava → 88.</div></div>
+        <div class="row"><div class="col-0">9</div><div>p, b; examples: pebble → 995.</div></div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built for practice — offline, no tracking. ✨</p>
+  </footer>
+</body>
+</html>
