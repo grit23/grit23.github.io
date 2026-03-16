@@ -133,7 +133,38 @@ xxxxxxxxxxxxxxxxxxxxx
         mouseY = e.clientY - rect.top;
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
+
+        // Lägg till lyssnare för både mus och touch, tillgagt efter för att fixa att det funkar på iphone med touch. updatePosition-funktionen hanterar både mus och touch också tillagd. /Erik
+        canvas.addEventListener('mousemove', updatePosition);
+        canvas.addEventListener('touchstart', updatePosition, { passive: false });
+        canvas.addEventListener('touchmove', updatePosition, { passive: false });
+
     });
+
+///
+        // Funktion för att uppdatera koordinater oavsett om det är mus eller finger, för iphone support. Denna funktion kallas både på mousemove och touchmove. EventListener ovan. /Erik
+    function updatePosition(e) {
+        const rect = canvas.getBoundingClientRect();
+        let clientY;
+
+        if (e.touches) {
+            // För touch-skärmar (iPhone)
+            clientY = e.touches[0].clientY;
+            // Förhindra att sidan skrollar när man drar fingret
+            e.preventDefault();
+        } else {
+            // För vanlig mus
+            clientY = e.clientY;
+        }
+
+        mouseY = clientY - rect.top;
+        
+        // Uppdatera den visuella cirkeln (cursor)
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        cursor.style.left = clientX + 'px';
+        cursor.style.top = clientY + 'px';
+}
+///
 
     function initAudio() {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
