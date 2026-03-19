@@ -1,90 +1,73 @@
 <!DOCTYPE html>
 <html lang="sv">
-<!--
-xxxxxxxxxxxxxxxx
-
-<!DOCTYPE html>
-<html lang="sv">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE SIGNAL - Elite Focus: Decoy Protocol</title>
-    
-    
-    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icons/// filepath: c:\Users\v067230\OneDrive - Volvo Group\Erik\My_apps\Concentration Game\index.html
-<!DOCTYPE html>
-<html lang="sv">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE SIGNAL - Elite Focus: Decoy Protocol</title>
-    
-    
-    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icons/
-
-
-xxxxxxxxxxxxxxxxxxxxx
--->
-
-
-
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-title" content="The Signal"> <!--shown under app icon on iphone-->
-    <title>THE SIGNAL - Elite Focus: Decoy Protocol</title>
-    
-    <!-- Mobile App Icons -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="The Signal"> <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        
     <link rel="apple-touch-icon" sizes="180x180" href="conc_game_icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="conc_game_icon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="conc_game_icon.png">
-    
-    
+
+    <title>THE SIGNAL - Elite Focus</title>
     <style>
         :root { --accent: #00ff95; --decoy: #ff0055; }
+        
+        /* Förhindrar alla system-gester och skroll på mobilen */
+        * { 
+            touch-action: none; 
+            -webkit-tap-highlight-color: transparent; 
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
         body {
             margin: 0; background: #000; color: var(--accent);
             font-family: 'Courier New', monospace; overflow: hidden;
             display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;
         }
+
         #ui {
-            position: absolute; top: 15px; width: 90%; display: flex; justify-content: space-between; z-index: 10;
+            position: absolute; top: env(safe-area-inset-top, 20px); 
+            width: 90%; display: flex; justify-content: space-between; z-index: 10;
+            font-size: 12px;
         }
-        .stat-box { background: rgba(255, 255, 255, 0.02); padding: 10px; border: 1px solid rgba(255,255,255,0.05); border-radius: 4px; text-align: center;}
-        canvas { border: 1px solid #111; cursor: none; background: #000; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
+
+        .stat-box { background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 4px; text-align: center; min-width: 80px; border: 1px solid rgba(255,255,255,0.1); }
+        
+        canvas { 
+            display: block;
+            background: #000; 
+            touch-action: none;
+        }
+
         #overlay {
-            position: absolute; text-align: center; background: rgba(0, 0, 0, 0.98);
-            padding: 50px; border: 2px solid var(--accent); z-index: 200; width: 450px;
+            position: absolute; text-align: center; background: rgba(0, 0, 0, 0.95);
+            padding: 30px; border: 2px solid var(--accent); z-index: 200; width: 80%; max-width: 400px;
         }
-        .distraction {
-            position: absolute; background: var(--decoy); color: white; padding: 10px 15px;
-            font-size: 0.9rem; font-weight: bold; animation: pop 1s ease-out forwards; pointer-events: none; z-index: 100;
-        }
-        @keyframes pop {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
-        }
+
         #boss-alert {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            color: var(--decoy); font-size: 3rem; font-weight: bold; text-shadow: 0 0 20px var(--decoy);
-            display: none; z-index: 150; text-align: center; animation: blink 0.5s infinite;
+            position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
+            color: var(--decoy); font-size: 2rem; font-weight: bold;
+            display: none; z-index: 150; text-align: center; animation: blink 0.4s infinite;
         }
+
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
         button {
-            background: var(--accent); color: #000; border: none; padding: 18px 45px;
-            font-size: 1.3rem; cursor: pointer; font-family: inherit; font-weight: bold; margin-top: 30px; transition: 0.1s;
+            background: var(--accent); color: #000; border: none; padding: 18px 40px;
+            font-size: 1.2rem; cursor: pointer; font-family: inherit; font-weight: bold; margin-top: 25px;
+            box-shadow: 0 0 15px var(--accent);
         }
-        button:hover { background: white; transform: scale(1.05); }
+
         #stability-bar { width: 100%; height: 6px; background: var(--accent); transition: width 0.1s; }
+
         #cursor {
-            width: 25px; height: 25px; border: 2px solid white; border-radius: 50%;
-            position: fixed; pointer-events: none; transform: translate(-50%, -50%); z-index: 1000; transition: border-color 0.3s;
+            width: 45px; height: 45px; border: 3px solid white; border-radius: 50%;
+            position: fixed; pointer-events: none; transform: translate(-50%, -50%);
+            z-index: 1000; will-change: transform, left, top;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
     </style>
 </head>
@@ -94,15 +77,15 @@ xxxxxxxxxxxxxxxxxxxxx
 <div id="boss-alert">WARNING<br>DECOY PROTOCOL</div>
 
 <div id="ui">
-    <div class="stat-box">STABILITY<div style="width:160px; background:#111; margin-top:5px;"><div id="stability-bar"></div></div></div>
+    <div class="stat-box">STABILITY<div style="width:100px; background:#111; margin-top:5px;"><div id="stability-bar"></div></div></div>
     <div class="stat-box">RANK<br><span id="rank" style="font-weight:bold;">NOVICE</span></div>
     <div class="stat-box">BEST: <span id="highscore">0</span><br>SCORE: <span id="score">0</span></div>
 </div>
 
 <div id="overlay">
     <h1 id="title">THE SIGNAL</h1>
-    <p id="message">Fokusera på <span style="color:#00ff95">NEON</span>-signalen. Ignorera bruset. Uppnå eliten.</p>
-    <button onclick="startGame()">INITIERA SEKVENSER</button>
+    <p id="message">Synkronisera din blick.<br>Följ <span style="color:var(--accent)">NEON</span>-linjen.</p>
+    <button id="startBtn">INITIERA</button>
 </div>
 
 <canvas id="gameCanvas"></canvas>
@@ -117,192 +100,146 @@ xxxxxxxxxxxxxxxxxxxxx
     const overlay = document.getElementById('overlay');
     const cursor = document.getElementById('cursor');
     const bossAlert = document.getElementById('boss-alert');
+    const startBtn = document.getElementById('startBtn');
 
-    let isPlaying = false, score = 0, stability = 100, time = 0, signalY = 225, mouseY = 0;
-    let decoyY = 225; // Boss-variabel
-    let isBossFight = false;
-    let highscore = localStorage.getItem('signal_v3_score') || 0;
+    let isPlaying = false, score = 0, stability = 100, time = 0, signalY = 200, mouseY = 0;
+    let decoyY = 200, isBossFight = false;
+    let highscore = localStorage.getItem('signal_final_score') || 0;
     let audioCtx, osc, gainNode;
 
     highscoreEl.innerText = highscore;
-    canvas.width = Math.min(window.innerWidth * 0.9, 1000);
-    canvas.height = 450;
+    
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight * 0.7;
+        signalY = canvas.height / 2;
+    }
+    window.addEventListener('resize', resize);
+    resize();
 
-    window.addEventListener('mousemove', (e) => {
+    // Responsiv positionering (Mus & Touch)
+    function updatePos(clientX, clientY) {
         const rect = canvas.getBoundingClientRect();
-        mouseY = e.clientY - rect.top;
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-
-        // Lägg till lyssnare för både mus och touch, tillgagt efter för att fixa att det funkar på iphone med touch. updatePosition-funktionen hanterar både mus och touch också tillagd. /Erik
-        canvas.addEventListener('mousemove', updatePosition);
-        canvas.addEventListener('touchstart', updatePosition, { passive: false });
-        canvas.addEventListener('touchmove', updatePosition, { passive: false });
-
-    });
-
-///
-        // Funktion för att uppdatera koordinater oavsett om det är mus eller finger, för iphone support. Denna funktion kallas både på mousemove och touchmove. EventListener ovan. /Erik
-    function updatePosition(e) {
-        const rect = canvas.getBoundingClientRect();
-        let clientY;
-
-        if (e.touches) {
-            // För touch-skärmar (iPhone)
-            clientY = e.touches[0].clientY;
-            // Förhindra att sidan skrollar när man drar fingret
-            e.preventDefault();
-        } else {
-            // För vanlig mus
-            clientY = e.clientY;
-        }
-
         mouseY = clientY - rect.top;
         
-        // Uppdatera den visuella cirkeln (cursor)
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        // Direkt uppdatering av markören utan CSS-delay
         cursor.style.left = clientX + 'px';
         cursor.style.top = clientY + 'px';
-}
-///
+    }
+
+    window.addEventListener('mousemove', (e) => updatePos(e.clientX, e.clientY));
+    
+    window.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+            updatePos(e.touches[0].clientX, e.touches[0].clientY);
+        }
+        if (isPlaying) e.preventDefault(); 
+    }, { passive: false });
+
+    window.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 0) {
+            updatePos(e.touches[0].clientX, e.touches[0].clientY);
+        }
+    }, { passive: false });
 
     function initAudio() {
+        if (audioCtx) return;
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         osc = audioCtx.createOscillator();
         gainNode = audioCtx.createGain();
-        osc.type = 'triangle';
+        osc.type = 'triangle'; 
         osc.connect(gainNode);
         gainNode.connect(audioCtx.destination);
         gainNode.gain.value = 0;
         osc.start();
     }
 
-    function updateTheme() {
-        if (score > 20000) { 
-            if (!isBossFight) startBossFight();
-        }
-        else if (score > 15000) { document.documentElement.style.setProperty('--accent', '#ff00ff'); rankEl.innerText = "SENTINEL"; }
-        else if (score > 8000) { document.documentElement.style.setProperty('--accent', '#00d4ff'); rankEl.innerText = "OPERATOR"; }
-        else if (score > 3000) { document.documentElement.style.setProperty('--accent', '#f3ff00'); rankEl.innerText = "TECH"; }
-    }
-
-    function startBossFight() {
-        isBossFight = true;
-        document.documentElement.style.setProperty('--accent', '#00ff95'); // Reset accent to real signal
-        rankEl.innerText = "HOSTILE";
-        rankEl.style.color = "var(--decoy)";
-        cursor.style.borderColor = "var(--decoy)";
-        bossAlert.style.display = "block";
-        setTimeout(() => bossAlert.style.display = "none", 2500);
-    }
-
-    function spawnDistraction() {
-        if (!isPlaying || isBossFight) return; // Inga popups under bossen
-        const div = document.createElement('div');
-        div.className = 'distraction';
-        div.innerText = ["NO", "FOCUS", "WAIT", "IGNORE"][Math.floor(Math.random()*4)];
-        div.style.left = (Math.random()*80 + 10) + "vw"; div.style.top = (Math.random()*80 + 10) + "vh";
-        document.body.appendChild(div);
-        setTimeout(() => div.remove(), 1000);
-        setTimeout(spawnDistraction, 2000 - (score/300)); 
-    }
-
     function startGame() {
-        if(!audioCtx) initAudio();
+        initAudio();
+        if(audioCtx.state === 'suspended') audioCtx.resume();
         score = 0; stability = 100; time = 0; isPlaying = true; isBossFight = false;
         document.documentElement.style.setProperty('--accent', '#00ff95');
-        rankEl.style.color = "var(--accent)"; rankEl.innerText = "NOVICE";
-        cursor.style.borderColor = "white";
+        rankEl.innerText = "NOVICE";
+        rankEl.style.color = "var(--accent)";
         overlay.style.display = 'none';
-        spawnDistraction();
         animate();
     }
 
-    function drawSignal(yPosition, color, isMain) {
+    startBtn.addEventListener('click', startGame);
+
+    function drawSignal(yPos, color, isMain) {
         ctx.strokeStyle = color;
         ctx.lineWidth = isMain ? 4 : 2;
-        ctx.shadowBlur = isMain ? 15 : 5;
-        ctx.shadowColor = color;
         ctx.beginPath();
-        ctx.moveTo(0, yPosition);
-        let freq = isMain ? 0.02 : 0.04;
-        let amp = isMain ? 10 : 15;
-        let speedMult = isMain ? 2 : 4;
-        for(let x=0; x<canvas.width; x+=5) {
-            ctx.lineTo(x, yPosition + Math.sin(x*freq + time*speedMult)*amp);
+        ctx.moveTo(0, yPos);
+        // Vågrörelsen (snabbare för bossen)
+        for(let x=0; x < canvas.width; x += 10) {
+            ctx.lineTo(x, yPos + Math.sin(x*0.02 + time*(isMain?2.5:4.5))* (isMain?20:30));
         }
         ctx.stroke();
-        ctx.shadowBlur = 0; // Reset for next draw
     }
 
     function animate() {
         if (!isPlaying) return;
-        updateTheme();
 
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Huvudsignal Logik
-        time += 0.03 + (score / 150000);
-        let targetY = (canvas.height/2) + Math.sin(time)*110 + Math.cos(time*0.6)*60;
-        signalY += (targetY - signalY) * 0.1;
-        
-        let mainColor = getComputedStyle(document.documentElement).getPropertyValue('--accent');
-        drawSignal(signalY, mainColor, true);
-
-        // Boss Logik (Decoy Signal)
-        if (isBossFight) {
-            let decoyTargetY = (canvas.height/2) + Math.sin(time*1.5)*150 + Math.cos(time*0.9)*30;
-            decoyY += (decoyTargetY - decoyY) * 0.15; // Rör sig snabbare
-            let decoyColor = getComputedStyle(document.documentElement).getPropertyValue('--decoy');
-            drawSignal(decoyY, decoyColor, false);
+        // Triggervärde för Boss-fight
+        if (score > 20000 && !isBossFight) {
+            isBossFight = true;
+            rankEl.innerText = "HOSTILE";
+            rankEl.style.color = "var(--decoy)";
+            bossAlert.style.display = "block";
+            setTimeout(() => bossAlert.style.display = "none", 2500);
+        } else if (score > 10000 && !isBossFight) {
+            rankEl.innerText = "ELITE";
+            document.documentElement.style.setProperty('--accent', '#00d4ff');
         }
 
-        // Check Focus
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        time += 0.03 + (score / 250000); // Gradvis hastighetsökning
+        let targetY = (canvas.height/2) + Math.sin(time)*90 + Math.cos(time*0.7)*50;
+        signalY += (targetY - signalY) * 0.12;
+        
+        drawSignal(signalY, getComputedStyle(document.documentElement).getPropertyValue('--accent'), true);
+
+        if (isBossFight) {
+            let decoyTargetY = (canvas.height/2) + Math.sin(time*1.8)*140;
+            decoyY += (decoyTargetY - decoyY) * 0.15;
+            drawSignal(decoyY, getComputedStyle(document.documentElement).getPropertyValue('--decoy'), false);
+        }
+
         const distMain = Math.abs(mouseY - signalY);
         const distDecoy = isBossFight ? Math.abs(mouseY - decoyY) : 999;
 
-        if (distMain < 35) {
-            score += 20;
-            stability = Math.min(100, stability + 0.4);
-            // Bra ljud
-            gainNode.gain.setTargetAtTime(0.04, audioCtx.currentTime, 0.1);
-            osc.frequency.setTargetAtTime(200 + (score/150), audioCtx.currentTime, 0.1);
-            stabilityBar.style.background = mainColor;
-        } else if (isBossFight && distDecoy < 35) {
-            // Följer fel signal under boss
-            stability -= 1.5; // Straffar hårt
-            // Dåligt ljud (Boss)
-            gainNode.gain.setTargetAtTime(0.2, audioCtx.currentTime, 0.05);
-            osc.frequency.setTargetAtTime(90 + Math.random()*20, audioCtx.currentTime, 0.01);
-            stabilityBar.style.background = "var(--decoy)";
+        if (distMain < 45) { // Träffyta för fingrar
+            score += 25;
+            stability = Math.min(100, stability + 0.5);
+            gainNode.gain.setTargetAtTime(0.06, audioCtx.currentTime, 0.1);
+            osc.frequency.setTargetAtTime(220 + (score/120), audioCtx.currentTime, 0.1);
+            stabilityBar.style.background = "var(--accent)";
         } else {
-            // Tappat båda
-            stability -= 0.7;
-            // Dåligt ljud (Normal)
-            gainNode.gain.setTargetAtTime(0.1, audioCtx.currentTime, 0.1);
-            osc.frequency.setTargetAtTime(110, audioCtx.currentTime, 0.1);
+            // Felstraff (Bossen straffar hårdare)
+            stability -= (isBossFight && distDecoy < 45) ? 1.8 : 0.8;
+            gainNode.gain.setTargetAtTime(0.15, audioCtx.currentTime, 0.1);
+            osc.frequency.setTargetAtTime(120, audioCtx.currentTime, 0.05);
             stabilityBar.style.background = "#fff";
         }
 
         stabilityBar.style.width = stability + "%";
         scoreEl.innerText = score;
 
-        // Kritisk stabilitet (Blinkande skärm)
-        if (stability < 25) {
-            document.body.style.background = (Math.random() > 0.85) ? "#200" : "#000";
-        } else {
-            document.body.style.background = "#000";
-        }
-
         if (stability <= 0) {
             isPlaying = false;
             gainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.1);
-            if (score > highscore) localStorage.setItem('signal_v3_score', score);
-            document.getElementById('title').innerText = "SYSTEM FAILURE";
-            document.getElementById('title').style.color = "var(--decoy)";
-            document.getElementById('message').innerHTML = `Frekvensen förlorad vid <b>${score}</b> poäng.<br>Rank uppnådd: ${rankEl.innerText}`;
+            if (score > highscore) {
+                highscore = score;
+                localStorage.setItem('signal_final_score', highscore);
+                highscoreEl.innerText = highscore;
+            }
             overlay.style.display = 'block';
+            document.getElementById('title').innerText = "DISCONNECTED";
+            document.getElementById('message').innerHTML = `Poäng: ${score}<br>Rank: ${rankEl.innerText}`;
         } else {
             requestAnimationFrame(animate);
         }
